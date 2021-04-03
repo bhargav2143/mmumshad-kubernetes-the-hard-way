@@ -15,14 +15,18 @@ In this section you will provision a Certificate Authority that can be used to g
 
 Create a CA certificate, then generate a Certificate Signing Request and use it to create a private key:
 
+OpenSSL is a cryptography toolkit implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1) network protocols and related cryptography standards required by them.
+
 
 ```
 # Create private key for CA
 openssl genrsa -out ca.key 2048
 
+req - PKCS#10 certificate request and certificate generating utility.The req command primarily creates and processes certificate requests in PKCS#10 format. It can additionally create self signed certificates for use as root CAs for example
 # Create CSR using the private key
 openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr
 
+x509 - Certificate display and signing utility
 # Self sign the csr using its own private key
 openssl x509 -req -in ca.csr -signkey ca.key -CAcreateserial  -out ca.crt -days 1000
 ```
